@@ -1,4 +1,4 @@
-package com.example.bottomnavigation;
+package com.example.bottomnavigation.Fragment;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -21,6 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.bumptech.glide.Glide;
+import com.example.bottomnavigation.Movie;
+import com.example.bottomnavigation.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,6 +31,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.bottomnavigation.app.MyApplication;
 
 public class StoreFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

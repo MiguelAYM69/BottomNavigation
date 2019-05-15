@@ -10,6 +10,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.example.bottomnavigation.Fragment.CartFragment;
+import com.example.bottomnavigation.Fragment.GiftsFragment;
+import com.example.bottomnavigation.Fragment.ProfileFragment;
+import com.example.bottomnavigation.Fragment.StoreFragment;
+import com.example.bottomnavigation.helper.BottomNavigationBehavior;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = getSupportActionBar();
 
-        // load the store fragment by default
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationBehavior());
+
         toolbar.setTitle("Shop");
         loadFragment(new StoreFragment());
     }
