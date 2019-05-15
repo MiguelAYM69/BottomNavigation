@@ -1,3 +1,9 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">activity_horizontal_margin</dimen>
+    <dimen name="card_margin">card_margin</dimen>
+    <dimen name="card_album_radius">card_album_radius</dimen>
+    <dimen name="album_cover_height">album_cover_height</dimen>
+    <dimen name="album_title_padding">album_title_padding</dimen>
+    <dimen name="songs_count_padding_bottom">songs_count_padding_bottom</dimen>
 </resources>
