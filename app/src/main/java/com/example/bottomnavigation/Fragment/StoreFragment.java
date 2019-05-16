@@ -3,6 +3,7 @@ package com.example.bottomnavigation.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.bumptech.glide.Glide;
 import com.example.bottomnavigation.Movie;
 import com.example.bottomnavigation.R;
+import com.example.bottomnavigation.app.MyApplication;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,16 +33,18 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.bottomnavigation.app.MyApplication;
+
 
 public class StoreFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+
     private static final String TAG = StoreFragment.class.getSimpleName();
+
+    // url to fetch shopping items
     private static final String URL = "https://api.androidhive.info/json/movies_2017.json";
 
     private RecyclerView recyclerView;
-    private List<Movie> movieList;
+    private List<Movie> itemsList;
     private StoreAdapter mAdapter;
 
     public StoreFragment() {
@@ -66,8 +70,8 @@ public class StoreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view);
-        movieList = new ArrayList<>();
-        mAdapter = new StoreAdapter(getActivity(), movieList);
+        itemsList = new ArrayList<>();
+        mAdapter = new StoreAdapter(getActivity(), itemsList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -81,21 +85,24 @@ public class StoreFragment extends Fragment {
         return view;
     }
 
+    /**
+     * fetching shopping item by making http call
+     */
     private void fetchStoreItems() {
         JsonArrayRequest request = new JsonArrayRequest(URL,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         if (response == null) {
-                            Toast.makeText(getActivity(), "No se pudo recuperar los artículos de la tienda! Inténtalo de nuevo.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Couldn't fetch the store items! Pleas try again.", Toast.LENGTH_LONG).show();
                             return;
                         }
 
                         List<Movie> items = new Gson().fromJson(response.toString(), new TypeToken<List<Movie>>() {
                         }.getType());
 
-                        movieList.clear();
-                        movieList.addAll(items);
+                        itemsList.clear();
+                        itemsList.addAll(items);
 
                         // refreshing recycler view
                         mAdapter.notifyDataSetChanged();
@@ -155,6 +162,11 @@ public class StoreFragment extends Fragment {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+
+    /**
+     * RecyclerView adapter class to render items
+     * This class can go into another separate class, but for simplicity
+     */
     class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.MyViewHolder> {
         private Context context;
         private List<Movie> movieList;

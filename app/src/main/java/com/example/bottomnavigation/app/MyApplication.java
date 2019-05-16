@@ -8,7 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 
-public class MyApplication extends Application {
+public class  MyApplication extends Application {
     public static final String TAG = MyApplication.class
             .getSimpleName();
 
